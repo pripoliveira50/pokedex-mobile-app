@@ -84,5 +84,5 @@ $ cd ios && rm -rf assets Pods Podfile.lock && pod cache clean --all && pod inst
 ## Interface
 
 <p align="center">
-<img src="https://https://github.com/priscilapoliveira/pokedex_mobile_app/blob/master/.github/assets/app.gif" width="320"/>
+<img src="/.github/assets/app.gif" width="320"/>
 </p>
