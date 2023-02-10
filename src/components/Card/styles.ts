@@ -6,15 +6,16 @@ import { TypeStyleProps } from '@screens/PokemonDetails/types';
 
 export const PokemonCard = styled.TouchableOpacity<TypeStyleProps>`
   ${({ theme, type }) => css`
+    justify-content: center;
     align-items: center;
     background: ${theme.colors.backgroundCard[type]
       ? theme.colors.backgroundCard[type]
       : theme.colors.light_text};
     border-radius: ${metrics.triplePixel}px;
     margin-right: ${metrics.triplePixel}px;
-    padding: ${metrics.pixel + 2}px;
-    height: ${RFValue(150)}px;
-    margin-bottom: ${metrics.eightFoldPixel + 5}px;
+    height: ${RFValue(170)}px;
+    width: ${RFPercentage(25)}px;
+    margin-bottom: ${metrics.sevenFoldPixel}px;
   `}
 `;
 
@@ -64,7 +65,8 @@ export const PokemonType = styled.View`
     border-radius: ${metrics.fiveFoldPixel}px;
     justify-content: center;
     align-items: center;
-    margin: ${metrics.pixel + 2}px;
+    margin-right: 4px;
+    margin-top: 4px;
     border: 1px solid ${theme.colors.background};
   `}
 `;

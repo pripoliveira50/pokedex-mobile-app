@@ -6,6 +6,7 @@ import { Loading } from '@components/Load';
 import { useContextFavorite } from '@context/FavoritesContext';
 import { FlatListPokemon } from '@components/FlatListPokemon';
 import { useRoutes } from '@hooks/useRoutes';
+import { View } from 'react-native';
 
 export const FavoritesPokemonPage = () => {
   const { getStorage, pokemonList, favLoad } = useContextFavorite();
@@ -30,8 +31,9 @@ export const FavoritesPokemonPage = () => {
           </S.BackButton>
           <S.Title testID="favorite-title">Favorites</S.Title>
         </S.Header>
-
-        <FlatListPokemon data={pokemonList} collumn={2} />
+        <View style={{ padding: 10 }}>
+          <FlatListPokemon data={pokemonList} collumn={2} />
+        </View>
       </S.Container>
     </>
   );

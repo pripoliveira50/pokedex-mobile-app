@@ -4,14 +4,13 @@ import * as S from './styles';
 import { Loading } from '@components/Load';
 
 import { useContextPokemon } from '@context/PokemonContext';
-import { FadeAnimation } from '@components/FadeAnimation';
-import pokedex from '@assets/img/pokedex.png';
 import { FlatListPokemon } from '@components/FlatListPokemon';
-import { useRoutes } from '@hooks/useRoutes';
-import { ROUTES } from '@routes/types';
+
 import { Controller, useForm } from 'react-hook-form';
 import { FormData } from './types';
 import { Input } from '@components/Input';
+import { View } from 'react-native';
+import { CarouselMenu } from './components/CarouselMenu';
 
 export const Home = () => {
   const {
@@ -22,7 +21,6 @@ export const Home = () => {
     findedPokemon,
     setFindedPokemon,
   } = useContextPokemon();
-  const { navigate } = useRoutes();
 
   const { control, resetField, watch } = useForm<FormData>({
     mode: `all`,
@@ -73,8 +71,8 @@ export const Home = () => {
         <Loading loading={load} />
         <S.Header>
           <S.Title>Pokédex</S.Title>
-          <S.SubTitle>Choose your pokemon</S.SubTitle>
         </S.Header>
+
         <S.InputContainer>
           <Controller
             control={control}
@@ -92,25 +90,16 @@ export const Home = () => {
             name="search"
           />
         </S.InputContainer>
-
         <FlatListPokemon
           data={renderPokemons}
-          horizontal={true}
           loadMorePokemons={getPokemonList}
           ListFooterComponent={renderFooter}
+          horizontal
         />
 
-        <S.ContentFav>
-          <S.TextFavorite>
-            Click in pokédex to see your favorites pokémons
-          </S.TextFavorite>
+        <S.SubTitle>For you</S.SubTitle>
 
-          <S.NavigationContainer onPress={() => navigate(ROUTES.FAVORITES)}>
-            <FadeAnimation>
-              <S.Image source={pokedex} />
-            </FadeAnimation>
-          </S.NavigationContainer>
-        </S.ContentFav>
+        <CarouselMenu />
       </S.Container>
     </>
   );

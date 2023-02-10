@@ -3,9 +3,10 @@ import styled, { css } from 'styled-components/native';
 
 export const ListPokemon = styled.FlatList.attrs({
   showsHorizontalScrollIndicator: false,
+  showVerticalScrollIndicator: false,
 
   contentContainerStyle: {
-    paddingHorizontal: 16,
+    paddingLeft: 10,
     paddingTop: 80,
   },
 })``;

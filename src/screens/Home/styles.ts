@@ -30,37 +30,10 @@ export const Title = styled.Text`
 export const SubTitle = styled.Text`
   ${({ theme }) => css`
     color: ${theme.colors.light_text};
-    font-family: ${theme.fonts.regular};
+    font-family: ${theme.fonts.bold};
     font-size: ${RFValue(16)}px;
-    margin-left: ${metrics.fourFoldPixel}px;
+    margin-left: ${metrics.doublePixel}px;
   `}
-`;
-
-export const ContentFav = styled.View`
-  jusify-content: center;
-  align-items: center;
-  margin-bottom: ${metrics.triplePixel}px;
-  top: ${-metrics.fiveFoldPixel}px;
-`;
-
-export const TextFavorite = styled.Text`
-  ${({ theme }) => css`
-    text-align: center;
-    color: ${theme.colors.light_text};
-    font-family: ${theme.fonts.medium};
-    font-size: ${RFValue(15)}px;
-    padding: ${metrics.pixel}px;
-    margin-bottom: ${metrics.pixel}px;
-  `}
-`;
-
-export const NavigationContainer = styled.TouchableOpacity``;
-
-export const Image = styled.ImageBackground`
-  width: ${RFValue(180)}px;
-  height: ${RFValue(140)}px;
-  opacity: 0.8;
-  transform: rotate(10deg);
 `;
 
 export const InputContainer = styled.View`
