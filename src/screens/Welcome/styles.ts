@@ -21,7 +21,7 @@ export const Content = styled.View`
 `;
 
 export const ContainerText = styled.View`
-  margin-top: ${metrics.fourFoldPixel}px;
+  margin-top: ${metrics.sevenFoldPixel}px;
   margin-left: ${metrics.fourFoldPixel}px;
 `;
 
