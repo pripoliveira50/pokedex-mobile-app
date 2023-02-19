@@ -19,7 +19,7 @@ export const Header = styled.View<TypeStyleProps>`
     align-items: center;
     position: relative;
     background: ${theme.colors.backgroundCard[type]};
-    height: ${RFValue(340)}px;
+    height: ${RFValue(310)}px;
     padding: ${metrics.triplePixel}px;
   `}
 `;
@@ -39,9 +39,7 @@ export const PokemonImage = styled.Image`
   height: ${RFValue(125)}px;
 `;
 
-export const Content = styled.View`
-  margin-left: ${metrics.fourFoldPixel}px;
-`;
+export const Content = styled.View``;
 
 export const DotsImage = styled.Image`
   width: ${RFValue(85)}px;
@@ -52,7 +50,7 @@ export const DotsImage = styled.Image`
 
 export const PokemonId = styled.Text`
   ${({ theme }) => css`
-    font-size: ${RFValue(16)}px;
+    font-size: ${RFValue(14)}px;
     font-family: ${theme.fonts.medium};
     color: ${theme.colors.light_text};
   `}
@@ -62,7 +60,7 @@ export const PokemonName = styled.Text`
   ${({ theme }) => css`
     text-transform: capitalize;
     font-family: ${theme.fonts.bold};
-    font-size: ${RFValue(26)}px;
+    font-size: ${RFValue(22)}px;
     line-height: ${metrics.fourFoldPixel}px;
     color: ${theme.colors.background};
   `}
@@ -77,8 +75,8 @@ export const PokemonType = styled.View<TypeStyleProps>`
   ${({ theme }) => css`
     justify-content: center;
     align-items: center;
-    width: ${RFValue(60)}px;
-    height: ${RFValue(30)}px;
+    width: ${RFValue(50)}px;
+    height: ${RFValue(25)}px;
     border-radius: ${metrics.fiveFoldPixel}px;
     padding: 0 ${metrics.pixel}px;
     margin: ${metrics.pixel + 2}px;
@@ -113,7 +111,7 @@ export const Scroll = styled.ScrollView.attrs({
 export const Title = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.fonts.bold};
-    font-size: ${RFValue(16)}px;
+    font-size: ${RFValue(14)}px;
     padding: ${metrics.doublePixel}px;
     color: ${theme.colors.light_text};
   `}
