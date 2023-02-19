@@ -19,34 +19,19 @@ export const PokemonDetails = () => {
   const { goBack } = useRoutes();
   const { pokemonName } = route.params as RouteParams;
   const { getPokemonDetails, pokemonDetails, load } = useContextPokemonDetail();
-  const { setStorage, pokemonList, getStorage, favLoad } = useContextFavorite();
-  const { renderHabilities, renderType, renderAtributes, renderEggs } =
-    usePokemonDetails();
+  const { getStorage, favLoad } = useContextFavorite();
+  const {
+    renderHabilities,
+    renderType,
+    renderAtributes,
+    renderEggs,
+    renderFavorite,
+  } = usePokemonDetails();
 
   useEffect(() => {
     getPokemonDetails(pokemonName);
     getStorage();
   }, [pokemonName, getStorage]);
-
-  const renderFavorite = useMemo(() => {
-    return (
-      <S.PokemonTypeContainer>
-        <S.Title>Favorite this</S.Title>
-        <S.Click
-          onPress={() => {
-            setStorage(pokemonDetails);
-          }}
-        >
-          {!!pokemonList.filter(pokemon => pokemon.name === pokemonDetails.name)
-            .length ? (
-            <S.Icon name={'star'} />
-          ) : (
-            <S.Icon name={'star-o'} />
-          )}
-        </S.Click>
-      </S.PokemonTypeContainer>
-    );
-  }, [pokemonDetails, pokemonList]);
 
   if (Object.keys(pokemonDetails).length === 0) {
     return;

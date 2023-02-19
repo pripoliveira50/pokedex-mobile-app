@@ -2,9 +2,11 @@ import { useContextPokemonDetail } from '@context/PokemonDetailsContext';
 import { useMemo } from 'react';
 
 import * as S from '../styles';
+import { useContextFavorite } from '@context/FavoritesContext';
 
 const usePokemonDetails = () => {
   const { pokemonDetails } = useContextPokemonDetail();
+  const { setStorage, pokemonList } = useContextFavorite();
 
   const renderHabilities = useMemo(() => {
     if (!pokemonDetails.abilities) return;
@@ -59,11 +61,32 @@ const usePokemonDetails = () => {
     ));
   }, [pokemonDetails]);
 
+  const renderFavorite = useMemo(() => {
+    return (
+      <S.PokemonTypeContainer>
+        <S.Title>Favorite this</S.Title>
+        <S.Click
+          onPress={() => {
+            setStorage(pokemonDetails);
+          }}
+        >
+          {!!pokemonList.filter(pokemon => pokemon.name === pokemonDetails.name)
+            .length ? (
+            <S.Icon name={'star'} />
+          ) : (
+            <S.Icon name={'star-o'} />
+          )}
+        </S.Click>
+      </S.PokemonTypeContainer>
+    );
+  }, [pokemonDetails, pokemonList]);
+
   return {
     renderHabilities,
     renderType,
     renderAtributes,
     renderEggs,
+    renderFavorite,
   };
 };
 
