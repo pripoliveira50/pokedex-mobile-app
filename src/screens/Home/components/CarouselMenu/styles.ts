@@ -1,4 +1,5 @@
 import metrics from '@global/metrics';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 
@@ -11,7 +12,7 @@ export const ListMenu = styled.FlatList.attrs({
   },
 })``;
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled(TouchableOpacity)`
   margin: 5px;
   padding: ${metrics.pixel + 2}px;
   border-radius: ${metrics.pixel * 2}px;

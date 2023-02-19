@@ -1,8 +1,9 @@
-import metrics from "@global/metrics";
-import { RFValue } from "react-native-responsive-fontsize";
-import styled, { css } from "styled-components/native";
+import metrics from '@global/metrics';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RFValue } from 'react-native-responsive-fontsize';
+import styled, { css } from 'styled-components/native';
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled(TouchableOpacity)`
   ${({ theme }) => css`
     width: 100%;
     height: ${RFValue(50)}px;

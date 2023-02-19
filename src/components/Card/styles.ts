@@ -3,8 +3,9 @@ import { RFValue, RFPercentage } from 'react-native-responsive-fontsize';
 import { StyleSheet } from 'react-native';
 import metrics from '@global/metrics';
 import { TypeStyleProps } from '@screens/PokemonDetails/types';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const PokemonCard = styled.TouchableOpacity<TypeStyleProps>`
+export const PokemonCard = styled(TouchableOpacity)<TypeStyleProps>`
   ${({ theme, type }) => css`
     justify-content: center;
     align-items: center;

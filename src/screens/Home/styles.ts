@@ -12,7 +12,7 @@ export const Container = styled.ScrollView`
 export const Header = styled.View`
   ${({ theme }) => css`
     justify-content: center;
-    margin-top: ${metrics.sevenFoldPixel}px;
+    margin-top: ${metrics.sevenFoldPixel + 10}px;
     height: ${RFValue(50)}px;
     padding-left: ${metrics.triplePixel}px;
     margin-bottom: ${metrics.fourFoldPixel}px;

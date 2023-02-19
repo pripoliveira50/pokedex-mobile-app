@@ -38,7 +38,7 @@ export const Home = () => {
   const filteredList = useCallback(
     (item: string) => {
       if (item === ``) return;
-      PokemonSearch(item);
+      PokemonSearch(item.toLowerCase());
       return findedPokemon;
     },
     [search, PokemonSearch, findedPokemon],

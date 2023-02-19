@@ -32,6 +32,7 @@ export const FlatListPokemon = ({
       />
     );
   }, []);
+
   const emptyList = useCallback(() => {
     return (
       <S.Title testID="flatlist-empty">

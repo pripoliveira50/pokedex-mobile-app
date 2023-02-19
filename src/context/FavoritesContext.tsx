@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 import {
   DataPokemonProps,
   FavoritesProviderProps,
@@ -15,39 +15,30 @@ function FavoritesProvider({ children }: FavoritesProviderProps) {
   const { getItem, setItem } = useAsyncStorage(POKEMON);
   const [favLoad, setFavLoad] = useState<boolean>(true);
 
-  async function setStorage(key: string, value: DataPokemonProps) {
+  const setStorage = useCallback(async (value: DataPokemonProps) => {
     try {
       const response = await getItem();
       const data = response ? JSON.parse(response) : [];
+      if (
+        data.filter((pokemon: DataPokemonProps) => pokemon.name === value.name)
+          .length
+      ) {
+        data.splice(
+          data.findIndex((data: DataPokemonProps) => data.name === value.name),
+          1,
+        );
 
-      if (data.length > 0) {
-        if (
-          data.filter(
-            (pokemon: DataPokemonProps) => pokemon.name === value.name,
-          ).length
-        ) {
-          data.splice(
-            data.findIndex(
-              (data: DataPokemonProps) => data.name === value.name,
-            ),
-            1,
-          );
-
-          await setItem(JSON.stringify(data));
-        } else {
-          const pokemonList = [...data, value];
-          await setItem(JSON.stringify(pokemonList));
-        }
-      } else {
-        const pokemonList = [...data, value];
-        await setItem(JSON.stringify(pokemonList));
+        await setItem(JSON.stringify(data));
+        return;
       }
+      const pokemonList = [...data, value];
+      return await setItem(JSON.stringify(pokemonList));
     } catch {
       return Alert.alert(
         'Ops, ocorreu um erro ao salvar o pokemon, tente novamente.',
       );
     }
-  }
+  }, []);
 
   async function getStorage() {
     try {

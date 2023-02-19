@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import metrics from '@global/metrics';
 import { Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const { height } = Dimensions.get('window');
 
 export const Container = styled.View`
@@ -23,7 +24,7 @@ export const Text = styled.Text`
   `}
 `;
 
-export const IconContent = styled.TouchableOpacity`
+export const IconContent = styled(TouchableOpacity)`
   width: ${RFValue(150)}px;
   height: ${RFValue(250)}px;
 `;

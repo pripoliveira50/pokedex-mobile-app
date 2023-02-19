@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import metrics from '@global/metrics';
 import { FontAwesome } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   ${({ theme }) => css`
@@ -12,10 +13,11 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   ${({ theme }) => css`
-    margin-top: ${metrics.sixFoldPixel}px;
+    margin-top: ${metrics.sevenFoldPixel + 20}px;
     height: ${RFValue(50)}px;
     flex-direction: row;
     padding-left: ${metrics.doublePixel}px;
+    align-items: center;
   `}
 `;
 
@@ -27,8 +29,7 @@ export const Title = styled.Text`
   `}
 `;
 
-export const BackButton = styled.TouchableOpacity`
-  top: ${RFValue(12)}px;
+export const BackButton = styled(TouchableOpacity)`
   margin-right: ${metrics.doublePixel}px;
 `;
 

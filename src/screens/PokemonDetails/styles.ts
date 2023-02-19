@@ -5,8 +5,9 @@ import { TypeStyleProps } from './types';
 import metrics from '@global/metrics';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { FontAwesome } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export const Click = styled.TouchableOpacity`
+export const Click = styled(TouchableOpacity)`
   top: ${RFValue(10)}px;
   height: ${RFValue(48)}px;
   width: ${RFValue(48)}px;
@@ -164,9 +165,9 @@ export const ProgressBar = styled(Progress.Bar).attrs({})<TypeStyleProps>``;
 export const BackButton = styled.TouchableOpacity`
   position: absolute;
   top: ${RFValue(70)}px;
-  left: ${RFValue(40)}px;
-  height: ${RFValue(48)}px;
-  width: ${RFValue(48)}px;
+  left: ${RFValue(20)}px;
+  height: ${RFValue(80)}px;
+  width: ${RFValue(80)}px;
 `;
 
 export const ContainerPokemonText = styled.View`

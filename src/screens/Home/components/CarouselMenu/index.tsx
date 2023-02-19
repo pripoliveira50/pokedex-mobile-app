@@ -1,6 +1,5 @@
 import { useRoutes } from '@hooks/useRoutes';
 import { useMemo, useCallback } from 'react';
-import { Text, FlatList, TouchableOpacity, View } from 'react-native';
 
 import * as S from './styles';
 

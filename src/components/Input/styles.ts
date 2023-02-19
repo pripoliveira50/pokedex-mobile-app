@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 import metrics from '@global/metrics';
 import { FontAwesome } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex-direction: row;
@@ -22,6 +23,7 @@ export const Content = styled.View`
 
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: '#5e6993',
+  autoCapitalize: 'none',
 })`
   font-size: ${RFValue(16)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
@@ -34,7 +36,7 @@ export const Icon = styled(FontAwesome).attrs({
   color: '#fff',
 })``;
 
-export const SearchButton = styled.TouchableOpacity`
+export const SearchButton = styled(TouchableOpacity)`
   justify-content: center;
   align-items: center;
   width: ${RFValue(50)}px;
