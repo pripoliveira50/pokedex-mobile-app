@@ -12,10 +12,10 @@ export const Container = styled.ScrollView`
 export const Header = styled.View`
   ${({ theme }) => css`
     justify-content: center;
-    margin-top: ${metrics.sixFoldPixel}px;
+    margin-top: ${metrics.sevenFoldPixel}px;
     height: ${RFValue(50)}px;
     padding-left: ${metrics.triplePixel}px;
-    margin-bottom: ${metrics.doublePixel}px;
+    margin-bottom: ${metrics.fourFoldPixel}px;
   `}
 `;
 
@@ -40,8 +40,9 @@ export const InputContainer = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: ${metrics.pixel}px;
-  padding: ${metrics.doublePixel}px;
+  margin-top: ${metrics.doublePixel}px;
+  padding: ${metrics.triplePixel}px;
+  margin-bottom: ${metrics.doublePixel}px;
 `;
 
 export const ContainerLoading = styled.View`
