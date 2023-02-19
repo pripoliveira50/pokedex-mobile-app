@@ -21,18 +21,6 @@ export const FlatListPokemon = ({
     });
   }, []);
 
-  const renderList = useCallback(({ item }) => {
-    return (
-      <Card
-        testID="card-pokemon"
-        data={item}
-        onPress={() => {
-          handleNavigationDetails(item.name);
-        }}
-      />
-    );
-  }, []);
-
   const emptyList = useCallback(() => {
     return (
       <S.Title testID="flatlist-empty">
@@ -45,7 +33,15 @@ export const FlatListPokemon = ({
     <S.ListPokemon
       testID="flatlist-pokemon"
       data={data}
-      renderItem={renderList}
+      renderItem={({ item }: any) => (
+        <Card
+          testID="card-pokemon"
+          data={item}
+          onPress={() => {
+            handleNavigationDetails(item.name);
+          }}
+        />
+      )}
       ListEmptyComponent={emptyList}
       numColumns={collumn}
       horizontal={horizontal}
