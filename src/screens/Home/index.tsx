@@ -72,7 +72,7 @@ export const Home = () => {
         <S.Header>
           <S.Title>Pokédex</S.Title>
         </S.Header>
-
+        <CarouselMenu />
         <S.InputContainer>
           <Controller
             control={control}
@@ -96,10 +96,6 @@ export const Home = () => {
           ListFooterComponent={renderFooter}
           horizontal
         />
-
-        <S.SubTitle>For you</S.SubTitle>
-
-        <CarouselMenu />
       </S.Container>
     </>
   );

@@ -12,9 +12,9 @@ export const PokemonCard = styled.TouchableOpacity<TypeStyleProps>`
       ? theme.colors.backgroundCard[type]
       : theme.colors.light_text};
     border-radius: ${metrics.triplePixel}px;
-    margin-right: ${metrics.triplePixel}px;
+    margin-right: ${metrics.doublePixel}px;
     height: ${RFValue(170)}px;
-    width: ${RFPercentage(25)}px;
+    width: ${RFPercentage(22)}px;
     margin-bottom: ${metrics.sevenFoldPixel}px;
   `}
 `;
