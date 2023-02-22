@@ -20,9 +20,6 @@ export const usePokemonSearch = (
 ) =>
   useQuery(
     getSearchPokemon(pokemon),
-    () =>
-      api
-        .get<GetMorenInfoProps>(`/pokemon/${pokemon}`)
-        .then(response => response.data),
+    () => api.get(`/pokemon/${pokemon}`).then(response => response.data),
     options,
   );

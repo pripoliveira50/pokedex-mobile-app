@@ -10,7 +10,6 @@ import { ThemeProvider } from 'styled-components/native';
 import { theme } from '@global/index';
 
 import '@config/ReactotronConfig';
-import { PokemonProvider } from '@context/PokemonContext';
 import { PokemonDetalisProvider } from '@context/PokemonDetailsContext';
 import { FavoritesProvider } from '@context/FavoritesContext';
 import { preventAutoHideAsync, hideAsync } from 'expo-splash-screen';
@@ -62,13 +61,11 @@ export default function App() {
           onLayout={onLayoutRootView}
         >
           <NavigationContainer ref={navigationRef}>
-            <PokemonProvider>
-              <PokemonDetalisProvider>
-                <FavoritesProvider>
-                  <AppRoutes />
-                </FavoritesProvider>
-              </PokemonDetalisProvider>
-            </PokemonProvider>
+            <PokemonDetalisProvider>
+              <FavoritesProvider>
+                <AppRoutes />
+              </FavoritesProvider>
+            </PokemonDetalisProvider>
           </NavigationContainer>
         </SafeAreaProvider>
       </ReactQueryProvider>

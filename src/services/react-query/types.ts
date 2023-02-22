@@ -7,6 +7,14 @@ export interface PokemonProviderProps {
   dehydratedState?: boolean;
 }
 
+export type PokemonPayloadProps = {
+  data?: any;
+  name: string;
+  id: number;
+  types: PokemonType[];
+  url: string;
+};
+
 export type DataGetPokemonProps = {
   results: PokemonPayloadProps[];
 };
@@ -21,12 +29,4 @@ export type PokemonType = {
   type: {
     name: string;
   };
-};
-
-export type PokemonPayloadProps = {
-  data?: any;
-  name: string;
-  id: number;
-  types: PokemonType[];
-  url: string;
 };
