@@ -1,5 +1,6 @@
 import { PokemonDetailProps, TypeName } from '@screens/PokemonDetails/types';
 import { ReactNode } from 'react';
+import { UseQueryResult } from 'react-query';
 
 //PokemonList
 export interface PokemonProviderProps {
@@ -7,12 +8,9 @@ export interface PokemonProviderProps {
 }
 
 export interface IPokemonsContextData {
-  getPokemonList: () => Promise<void>;
-  PokemonSearch(pokemon: string): Promise<void>;
-  setFindedPokemon: (value: React.SetStateAction<DataPokemonProps[]>) => void;
+  pokemons: UseQueryResult<any[], unknown>;
+  getMorePokemons: () => void;
   pokemonList: DataPokemonProps[];
-  findedPokemon: DataPokemonProps[];
-  load: boolean;
 }
 
 //Details

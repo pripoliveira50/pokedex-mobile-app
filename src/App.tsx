@@ -23,6 +23,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from '@routes/root';
 import { AppRoutes } from '@routes/app.routes';
+import ReactQueryProvider from '@services/react-query';
 
 preventAutoHideAsync();
 
@@ -54,21 +55,23 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaProvider
-        initialMetrics={initialWindowMetrics}
-        onLayout={onLayoutRootView}
-      >
-        <NavigationContainer ref={navigationRef}>
-          <PokemonProvider>
-            <PokemonDetalisProvider>
-              <FavoritesProvider>
-                <StatusBar backgroundColor="#343D64" />
-                <AppRoutes />
-              </FavoritesProvider>
-            </PokemonDetalisProvider>
-          </PokemonProvider>
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <StatusBar backgroundColor="#343D64" barStyle={'light-content'} />
+      <ReactQueryProvider>
+        <SafeAreaProvider
+          initialMetrics={initialWindowMetrics}
+          onLayout={onLayoutRootView}
+        >
+          <NavigationContainer ref={navigationRef}>
+            <PokemonProvider>
+              <PokemonDetalisProvider>
+                <FavoritesProvider>
+                  <AppRoutes />
+                </FavoritesProvider>
+              </PokemonDetalisProvider>
+            </PokemonProvider>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </ReactQueryProvider>
     </ThemeProvider>
   );
 }

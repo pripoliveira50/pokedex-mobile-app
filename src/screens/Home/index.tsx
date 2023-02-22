@@ -1,5 +1,3 @@
-import { useCallback, useMemo, useEffect } from 'react';
-
 import * as S from './styles';
 import { Loading } from '@components/Load';
 
@@ -9,18 +7,10 @@ import { FlatListPokemon } from '@components/FlatListPokemon';
 import { Controller, useForm } from 'react-hook-form';
 import { FormData } from './types';
 import { Input } from '@components/Input';
-import { View } from 'react-native';
 import { CarouselMenu } from './components/CarouselMenu';
 
 export const Home = () => {
-  const {
-    getPokemonList,
-    pokemonList,
-    PokemonSearch,
-    load,
-    findedPokemon,
-    setFindedPokemon,
-  } = useContextPokemon();
+  const { pokemonList, getMorePokemons, pokemons } = useContextPokemon();
 
   const { control, resetField, watch } = useForm<FormData>({
     mode: `all`,
@@ -31,44 +21,32 @@ export const Home = () => {
 
   const search = watch(`search`);
 
-  useEffect(() => {
-    getPokemonList();
-  }, []);
+  // const filteredList = useCallback(
+  //   (item: string) => {
+  //     if (item === ``) return;
+  //     PokemonSearch(item.toLowerCase());
+  //     return findedPokemon;
+  //   },
+  //   [search, PokemonSearch, findedPokemon],
+  // );
 
-  const filteredList = useCallback(
-    (item: string) => {
-      if (item === ``) return;
-      PokemonSearch(item.toLowerCase());
-      return findedPokemon;
-    },
-    [search, PokemonSearch, findedPokemon],
-  );
+  // const resetPokemon = useCallback(() => {
+  //   setFindedPokemon([]);
+  //   resetField(`search`);
+  // }, [setFindedPokemon, resetField]);
 
-  const resetPokemon = useCallback(() => {
-    setFindedPokemon([]);
-    resetField(`search`);
-  }, [setFindedPokemon, resetField]);
+  // const renderPokemons = useMemo(() => {
+  //   if (findedPokemon.length > 0) {
+  //     return findedPokemon;
+  //   }
 
-  const renderPokemons = useMemo(() => {
-    if (findedPokemon.length > 0) {
-      return findedPokemon;
-    }
-
-    return pokemonList;
-  }, [pokemonList, search, findedPokemon]);
-
-  const renderFooter = useCallback(() => {
-    return (
-      <S.ContainerLoading>
-        <S.Load />
-      </S.ContainerLoading>
-    );
-  }, []);
+  //   return pokemonList;
+  // }, [pokemonList, search, findedPokemon]);
 
   return (
     <>
       <S.Container>
-        <Loading loading={load} />
+        <Loading loading={pokemons.isLoading} />
         <S.Header>
           <S.Title>Pokédex</S.Title>
         </S.Header>
@@ -83,17 +61,16 @@ export const Home = () => {
                 onBlur={onBlur}
                 placeholder="Search pokemon"
                 maxLength={40}
-                resetSearch={() => resetPokemon()}
-                searchPokemon={() => filteredList(search)}
+                // resetSearch={() => resetPokemon()}
+                // searchPokemon={() => filteredList(search)}
               />
             )}
             name="search"
           />
         </S.InputContainer>
         <FlatListPokemon
-          data={renderPokemons}
-          loadMorePokemons={getPokemonList}
-          ListFooterComponent={renderFooter}
+          data={pokemonList}
+          loadMorePokemons={getMorePokemons}
           horizontal
         />
       </S.Container>
