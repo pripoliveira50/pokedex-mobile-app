@@ -42,7 +42,7 @@ export const InputContainer = styled.View`
   flex: 1;
   margin-top: ${metrics.doublePixel}px;
   padding: ${metrics.triplePixel}px;
-  margin-bottom: ${metrics.doublePixel}px;
+  margin-bottom: ${metrics.pixel}px;
 `;
 
 export const ContainerLoading = styled.View`
