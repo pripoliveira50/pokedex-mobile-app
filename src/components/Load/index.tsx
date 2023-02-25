@@ -5,6 +5,7 @@ import { LoadingProps } from './types';
 
 export const Loading = ({ loading }: LoadingProps) => {
   const AnimatedLottieView = require('lottie-react-native');
+
   return loading ? (
     <S.Container testID="loading">
       <S.IconContent>

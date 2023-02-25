@@ -33,9 +33,7 @@ export interface FavoritesProviderProps {
 export interface IFavoritesContextData {
   setStorage(value: DataPokemonProps): Promise<void>;
   getStorage(): Promise<void>;
-  setFavLoad: (value: boolean) => void;
   pokemonList: DataPokemonProps[];
-  favLoad: boolean;
 }
 
 export type DataPokemonProps = {

@@ -1,4 +1,4 @@
-import api from '@services/api';
+import api from '@services/axios';
 import { keyFetchPokemons } from '@services/react-query/keys';
 import {
   GetMorenInfoProps,
@@ -6,7 +6,7 @@ import {
 } from '@services/react-query/types';
 import { useCallback } from 'react';
 import { UseQueryOptions, useQuery } from 'react-query';
-import { keySearchPokemon } from '../../../services/react-query/keys';
+import { keySearchPokemon } from '../react-query/keys';
 
 export const usePokemonProvider = () => {
   const fetchPokemons = useCallback(async (page: number) => {

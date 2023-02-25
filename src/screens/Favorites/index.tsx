@@ -9,7 +9,7 @@ import { useRoutes } from '@hooks/useRoutes';
 import { View } from 'react-native';
 
 export const FavoritesPokemonPage = () => {
-  const { getStorage, pokemonList, favLoad } = useContextFavorite();
+  const { getStorage, pokemonList } = useContextFavorite();
   const { goBack } = useRoutes();
 
   useEffect(
@@ -21,7 +21,6 @@ export const FavoritesPokemonPage = () => {
   return (
     <>
       <S.Container>
-        <Loading loading={favLoad} />
         <S.Header>
           <S.BackButton
             testID="favorite-back-button-icon"

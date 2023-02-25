@@ -7,9 +7,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { FormData } from './types';
 import { Input } from '@components/Input';
 import { CarouselMenu } from './components/CarouselMenu';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { GetMorenInfoProps } from '@services/react-query/types';
-import { usePokemonProvider } from './hooks';
+import { usePokemonProvider } from '@services/usePokemonProvider';
 import { Alert } from 'react-native';
 
 export const Home = () => {
