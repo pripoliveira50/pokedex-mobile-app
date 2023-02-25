@@ -9,18 +9,14 @@ import { Input } from '@components/Input';
 import { CarouselMenu } from './components/CarouselMenu';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { GetMorenInfoProps } from '@services/react-query/types';
-import { useQuery } from 'react-query';
 import { usePokemonProvider } from './hooks';
 import { Alert } from 'react-native';
-import { keyFetchPokemons } from '@services/react-query/keys';
-import { keySearchPokemon } from '../../services/react-query/keys';
 
 export const Home = () => {
   const [pokemonList, setPokemonList] = useState<GetMorenInfoProps[]>([]);
   const [page, setPage] = useState(0);
-  const { fetchPokemons, searchPokemon } = usePokemonProvider();
+  const { useSearchPokemon, useFetchPokemons } = usePokemonProvider();
   const [filterPokemon, setFilterPokemon] = useState<GetMorenInfoProps[]>([]);
-  const [filter, setFilter] = useState(``);
   const { control, resetField, watch } = useForm<FormData>({
     mode: `all`,
     defaultValues: {
@@ -28,7 +24,7 @@ export const Home = () => {
     },
   });
 
-  const pokemons = useQuery(keyFetchPokemons(page), () => fetchPokemons(page), {
+  const pokemons = useFetchPokemons(page, {
     onError: () => {
       Alert.alert(
         'Ops, ocorreu um erro ao buscar os pokemons, tente novamente.',
@@ -36,75 +32,76 @@ export const Home = () => {
     },
   });
 
-  const { data } = useQuery(
-    keySearchPokemon(filter),
-    () => searchPokemon(filter.toLocaleLowerCase()),
-    {
-      enabled: !!filter,
-      onSuccess() {
-        if (!data && data === undefined) return;
-        setFilterPokemon(data);
-      },
-      onError: () => {
-        Alert.alert(
-          'Ops, ocorreu um erro ao buscar os pokemons, tente novamente.',
-        );
-      },
-    },
-  );
+  const search = watch(`search`);
 
-  const renderPokemons = useMemo(() => {
-    if (filterPokemon.length > 0) {
-      return filterPokemon;
-    }
-    return pokemonList;
-  }, [pokemonList, filterPokemon]);
+  const searchPokemons = useSearchPokemon(search.toLocaleLowerCase(), {
+    onSuccess(data) {
+      if (!data && data === undefined) return;
+      setFilterPokemon(data);
+    },
+    onError: () => {
+      Alert.alert(
+        'Ops, ocorreu um erro ao buscar os pokemons, tente novamente.',
+      );
+    },
+  });
 
   useEffect(() => {
-    [pokemons.data] &&
-      setPokemonList([
-        ...pokemonList,
-        ...(pokemons.data as GetMorenInfoProps[]),
-      ]);
+    if (!pokemons.data) return;
+    [pokemons.data]
+      ? setPokemonList([
+          ...pokemonList,
+          ...(pokemons.data as GetMorenInfoProps[]),
+        ])
+      : null;
   }, [pokemons.data]);
 
   const getMorePokemons = useCallback(() => {
     setPage(oldValue => oldValue + 20);
   }, []);
 
+  const renderPokemons = useMemo(() => {
+    if (filterPokemon.length > 0 && filterPokemon[0] !== undefined) {
+      console.log(filterPokemon);
+      return filterPokemon;
+    }
+    return pokemonList;
+  }, [pokemonList, filterPokemon]);
+
   const resetPokemon = useCallback(() => {
     setFilterPokemon([]);
-    setFilter(``);
     resetField(`search`);
   }, [resetField, filterPokemon]);
 
-  console.log(filterPokemon, 'a');
+  const renderInput = useMemo(() => {
+    return (
+      <Controller
+        control={control}
+        render={({ field: { value, onChange, onBlur } }) => (
+          <Input
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            placeholder="Search pokemon"
+            maxLength={40}
+            resetSearch={() => resetPokemon()}
+            searchPokemon={() => searchPokemons.refetch()}
+          />
+        )}
+        name="search"
+      />
+    );
+  }, [control, filterPokemon]);
 
   return (
     <>
       <S.Container>
-        <Loading loading={pokemons.isLoading} />
+        <Loading loading={pokemons.isLoading || searchPokemons.isLoading} />
         <S.Header>
           <S.Title>Pokédex</S.Title>
         </S.Header>
         <CarouselMenu />
-        <S.InputContainer>
-          <Controller
-            control={control}
-            render={({ field: { value, onChange, onBlur } }) => (
-              <Input
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                placeholder="Search pokemon"
-                maxLength={40}
-                resetSearch={() => resetPokemon()}
-                searchPokemon={() => setFilter(value)}
-              />
-            )}
-            name="search"
-          />
-        </S.InputContainer>
+        <S.InputContainer>{renderInput}</S.InputContainer>
         <FlatListPokemon
           data={renderPokemons}
           loadMorePokemons={getMorePokemons}
