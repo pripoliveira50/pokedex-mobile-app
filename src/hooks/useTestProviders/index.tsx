@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from '@routes/root';
 import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
-import { PokemonProvider } from '@context/PokemonContext';
 import { FavoritesProvider } from '@context/FavoritesContext';
 
 interface IProviderProps {
@@ -23,31 +22,21 @@ jest.mock('@react-native-async-storage/async-storage', () =>
 export const useFavoriteProvider: React.FC<IProviderProps> = ({ children }) => (
   <ThemeProvider theme={theme}>
     <FavoritesProvider>
-      <PokemonProvider>
-        <NavigationContainer ref={navigationRef}>
-          {children}
-        </NavigationContainer>
-      </PokemonProvider>
+      <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
     </FavoritesProvider>
   </ThemeProvider>
 );
 
 export const useHomeProvider: React.FC<IProviderProps> = ({ children }) => (
   <ThemeProvider theme={theme}>
-    <PokemonProvider>
-      <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
-    </PokemonProvider>
+    <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
   </ThemeProvider>
 );
 
 export const useCardProvider: React.FC<IProviderProps> = ({ children }) => (
   <ThemeProvider theme={theme}>
     <FavoritesProvider>
-      <PokemonProvider>
-        <NavigationContainer ref={navigationRef}>
-          {children}
-        </NavigationContainer>
-      </PokemonProvider>
+      <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
     </FavoritesProvider>
   </ThemeProvider>
 );
@@ -57,11 +46,7 @@ export const usePokemonDetailsProvider: React.FC<IProviderProps> = ({
 }) => (
   <ThemeProvider theme={theme}>
     <FavoritesProvider>
-      <PokemonProvider>
-        <NavigationContainer ref={navigationRef}>
-          {children}
-        </NavigationContainer>
-      </PokemonProvider>
+      <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
     </FavoritesProvider>
   </ThemeProvider>
 );
