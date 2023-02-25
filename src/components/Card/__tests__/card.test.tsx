@@ -2,7 +2,7 @@ import { render } from '@testing-library/react-native';
 
 import { Card } from '../index';
 import { useCardProvider } from '../../../hooks/useTestProviders/index';
-import { PokemonPayloadProps } from '@context/types';
+import { PokemonPayloadProps } from '@services/react-query/types';
 
 jest.mock('@assets/img/dots.png', () => 'dots.png');
 jest.mock('@assets/img/pokeball.png', () => 'pokeball.png');

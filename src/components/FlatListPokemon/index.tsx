@@ -15,11 +15,14 @@ export const FlatListPokemon = ({
 }: FavProps) => {
   const { navigate } = useRoutes();
 
-  const handleNavigationDetails = useCallback((pokemonName: string) => {
-    navigate(ROUTES.POKEMON_DETAILS, {
-      pokemonName,
-    });
-  }, []);
+  const handleNavigationDetails = useCallback(
+    (pokemonName: string) => {
+      navigate(ROUTES.POKEMON_DETAILS, {
+        pokemonName,
+      });
+    },
+    [navigate],
+  );
 
   const emptyList = useCallback(() => {
     return (
@@ -37,9 +40,7 @@ export const FlatListPokemon = ({
         <Card
           testID="card-pokemon"
           data={item}
-          onPress={() => {
-            handleNavigationDetails(item.name);
-          }}
+          onPress={() => handleNavigationDetails(item.name)}
         />
       )}
       ListEmptyComponent={emptyList}

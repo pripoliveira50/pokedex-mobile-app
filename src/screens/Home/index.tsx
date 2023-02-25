@@ -1,27 +1,22 @@
-import { useCallback, useMemo, useEffect } from 'react';
-
 import * as S from './styles';
 import { Loading } from '@components/Load';
 
-import { useContextPokemon } from '@context/PokemonContext';
 import { FlatListPokemon } from '@components/FlatListPokemon';
 
 import { Controller, useForm } from 'react-hook-form';
 import { FormData } from './types';
 import { Input } from '@components/Input';
-import { View } from 'react-native';
 import { CarouselMenu } from './components/CarouselMenu';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { GetMorenInfoProps } from '@services/react-query/types';
+import { usePokemonProvider } from '@services/usePokemonProvider';
+import { Alert } from 'react-native';
 
 export const Home = () => {
-  const {
-    getPokemonList,
-    pokemonList,
-    PokemonSearch,
-    load,
-    findedPokemon,
-    setFindedPokemon,
-  } = useContextPokemon();
-
+  const [pokemonList, setPokemonList] = useState<GetMorenInfoProps[]>([]);
+  const [page, setPage] = useState(0);
+  const { useSearchPokemon, useFetchPokemons } = usePokemonProvider();
+  const [filterPokemon, setFilterPokemon] = useState<GetMorenInfoProps[]>([]);
   const { control, resetField, watch } = useForm<FormData>({
     mode: `all`,
     defaultValues: {
@@ -29,71 +24,87 @@ export const Home = () => {
     },
   });
 
+  const pokemons = useFetchPokemons(page, {
+    onError: () => {
+      Alert.alert(
+        'Ops, ocorreu um erro ao buscar os pokemons, tente novamente.',
+      );
+    },
+  });
+
   const search = watch(`search`);
 
-  useEffect(() => {
-    getPokemonList();
-  }, []);
-
-  const filteredList = useCallback(
-    (item: string) => {
-      if (item === ``) return;
-      PokemonSearch(item.toLowerCase());
-      return findedPokemon;
+  const searchPokemons = useSearchPokemon(search.toLocaleLowerCase(), {
+    onSuccess(data) {
+      if (!data && data === undefined) return;
+      setFilterPokemon(data);
     },
-    [search, PokemonSearch, findedPokemon],
-  );
+    onError: () => {
+      Alert.alert(
+        'Ops, ocorreu um erro ao buscar os pokemons, tente novamente.',
+      );
+    },
+  });
 
-  const resetPokemon = useCallback(() => {
-    setFindedPokemon([]);
-    resetField(`search`);
-  }, [setFindedPokemon, resetField]);
+  useEffect(() => {
+    if (!pokemons.data) return;
+    [pokemons.data]
+      ? setPokemonList([
+          ...pokemonList,
+          ...(pokemons.data as GetMorenInfoProps[]),
+        ])
+      : null;
+  }, [pokemons.data]);
+
+  const getMorePokemons = useCallback(() => {
+    setPage(oldValue => oldValue + 20);
+  }, []);
 
   const renderPokemons = useMemo(() => {
-    if (findedPokemon.length > 0) {
-      return findedPokemon;
+    if (filterPokemon.length > 0 && filterPokemon[0] !== undefined) {
+      console.log(filterPokemon);
+      return filterPokemon;
     }
-
     return pokemonList;
-  }, [pokemonList, search, findedPokemon]);
+  }, [pokemonList, filterPokemon]);
 
-  const renderFooter = useCallback(() => {
+  const resetPokemon = useCallback(() => {
+    setFilterPokemon([]);
+    resetField(`search`);
+  }, [resetField, filterPokemon]);
+
+  const renderInput = useMemo(() => {
     return (
-      <S.ContainerLoading>
-        <S.Load />
-      </S.ContainerLoading>
+      <Controller
+        control={control}
+        render={({ field: { value, onChange, onBlur } }) => (
+          <Input
+            value={value}
+            onChangeText={onChange}
+            onBlur={onBlur}
+            placeholder="Search pokemon"
+            maxLength={40}
+            resetSearch={() => resetPokemon()}
+            searchPokemon={() => searchPokemons.refetch()}
+          />
+        )}
+        name="search"
+      />
     );
-  }, []);
+  }, [control, filterPokemon]);
 
   return (
     <>
       <S.Container>
-        <Loading loading={load} />
+        <Loading loading={pokemons.isLoading || searchPokemons.isLoading} />
         <S.Header>
           <S.Title>Pokédex</S.Title>
         </S.Header>
         <CarouselMenu />
-        <S.InputContainer>
-          <Controller
-            control={control}
-            render={({ field: { value, onChange, onBlur } }) => (
-              <Input
-                value={value}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                placeholder="Search pokemon"
-                maxLength={40}
-                resetSearch={() => resetPokemon()}
-                searchPokemon={() => filteredList(search)}
-              />
-            )}
-            name="search"
-          />
-        </S.InputContainer>
+        <S.InputContainer>{renderInput}</S.InputContainer>
         <FlatListPokemon
           data={renderPokemons}
-          loadMorePokemons={getPokemonList}
-          ListFooterComponent={renderFooter}
+          loadMorePokemons={getMorePokemons}
           horizontal
         />
       </S.Container>

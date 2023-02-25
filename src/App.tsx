@@ -10,8 +10,7 @@ import { ThemeProvider } from 'styled-components/native';
 import { theme } from '@global/index';
 
 import '@config/ReactotronConfig';
-import { PokemonProvider } from '@context/PokemonContext';
-import { PokemonDetalisProvider } from '@context/PokemonDetailsContext';
+
 import { FavoritesProvider } from '@context/FavoritesContext';
 import { preventAutoHideAsync, hideAsync } from 'expo-splash-screen';
 import { LogBox, StatusBar } from 'react-native';
@@ -23,6 +22,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from '@routes/root';
 import { AppRoutes } from '@routes/app.routes';
+import ReactQueryProvider from '@services/react-query';
 
 preventAutoHideAsync();
 
@@ -54,21 +54,19 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaProvider
-        initialMetrics={initialWindowMetrics}
-        onLayout={onLayoutRootView}
-      >
-        <NavigationContainer ref={navigationRef}>
-          <PokemonProvider>
-            <PokemonDetalisProvider>
-              <FavoritesProvider>
-                <StatusBar backgroundColor="#343D64" />
-                <AppRoutes />
-              </FavoritesProvider>
-            </PokemonDetalisProvider>
-          </PokemonProvider>
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <StatusBar backgroundColor="#343D64" barStyle={'light-content'} />
+      <ReactQueryProvider>
+        <SafeAreaProvider
+          initialMetrics={initialWindowMetrics}
+          onLayout={onLayoutRootView}
+        >
+          <NavigationContainer ref={navigationRef}>
+            <FavoritesProvider>
+              <AppRoutes />
+            </FavoritesProvider>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </ReactQueryProvider>
     </ThemeProvider>
   );
 }

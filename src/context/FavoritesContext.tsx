@@ -13,7 +13,6 @@ const FavoritesContext = createContext({} as IFavoritesContextData);
 function FavoritesProvider({ children }: FavoritesProviderProps) {
   const [pokemonList, setPokemonList] = useState<DataPokemonProps[]>([]);
   const { getItem, setItem } = useAsyncStorage(POKEMON);
-  const [favLoad, setFavLoad] = useState<boolean>(true);
 
   const setStorage = useCallback(async (value: DataPokemonProps) => {
     try {
@@ -50,8 +49,6 @@ function FavoritesProvider({ children }: FavoritesProviderProps) {
       return Alert.alert(
         'Ops, ocorreu um erro ao buscar os pokemons, tente novamente.',
       );
-    } finally {
-      setFavLoad(false);
     }
   }
 
@@ -61,8 +58,6 @@ function FavoritesProvider({ children }: FavoritesProviderProps) {
         setStorage,
         getStorage,
         pokemonList,
-        favLoad,
-        setFavLoad,
       }}
     >
       {children}

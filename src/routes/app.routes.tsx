@@ -1,10 +1,11 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Home } from '@screens/Home';
-import { Welcome } from '@screens/Welcome';
-
-import { PokemonDetails } from '@screens/PokemonDetails';
-import { FavoritesPokemonPage } from '@screens/Favorites';
+import {
+  Welcome,
+  Home,
+  FavoritesPokemonPage,
+  PokemonDetails,
+} from '@screens/index';
 
 import { Routes } from './map';
 import { ROUTES } from './types';
