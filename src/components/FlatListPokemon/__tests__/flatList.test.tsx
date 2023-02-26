@@ -38,14 +38,14 @@ const navigateDetailsPokemon = jest.fn((pokemonName: string) =>
 describe('FlatListPokemon', () => {
   it('should render FlatListPokemon with data', () => {
     const { getByTestId } = render(<FlatListPokemon data={data} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
     expect(getByTestId('flatlist-pokemon').props.renderItem.length).toBe(1);
   });
 
   it('should call navigate when onPress is called', async () => {
     const { findByText } = render(<FlatListPokemon data={data} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
 
     const click = await findByText('Bulbasaur');
@@ -60,7 +60,7 @@ describe('FlatListPokemon', () => {
 
   it('should render empty component', () => {
     const { getByTestId } = render(<FlatListPokemon data={[]} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
 
     expect(getByTestId('flatlist-empty').props.children).toEqual(
@@ -70,7 +70,7 @@ describe('FlatListPokemon', () => {
 
   it('should data be empty', () => {
     const { getByTestId } = render(<FlatListPokemon data={[]} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
 
     expect(getByTestId('flatlist-pokemon').props.data.length).toEqual(0);
@@ -78,7 +78,7 @@ describe('FlatListPokemon', () => {
 
   it('should render FlatListPokemon with data', () => {
     const { getByTestId } = render(<FlatListPokemon data={data} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
 
     expect(getByTestId('flatlist-pokemon').props.data.length).toEqual(1);
@@ -102,7 +102,7 @@ describe('FlatListPokemon', () => {
     const { getByTestId } = render(
       <FlatListPokemon data={data} ListFooterComponent={<></>} />,
       {
-        wrapper: useCardProvider,
+        wrapper: useCardProvider(),
       },
     );
 
@@ -113,7 +113,7 @@ describe('FlatListPokemon', () => {
 
   it('should render FlatListPokemon with horizontal', () => {
     const { getByTestId } = render(<FlatListPokemon data={data} horizontal />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
 
     expect(getByTestId('flatlist-pokemon').props.horizontal).toBeTruthy();

@@ -4,6 +4,7 @@ import { navigationRef } from '@routes/root';
 import React from 'react';
 import { ThemeProvider } from 'styled-components/native';
 import { FavoritesProvider } from '@context/FavoritesContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 interface IProviderProps {
   children: React.ReactNode;
@@ -33,20 +34,46 @@ export const useHomeProvider: React.FC<IProviderProps> = ({ children }) => (
   </ThemeProvider>
 );
 
-export const useCardProvider: React.FC<IProviderProps> = ({ children }) => (
-  <ThemeProvider theme={theme}>
-    <FavoritesProvider>
-      <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
-    </FavoritesProvider>
-  </ThemeProvider>
-);
+export const useCardProvider = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
 
-export const usePokemonDetailsProvider: React.FC<IProviderProps> = ({
-  children,
-}) => (
-  <ThemeProvider theme={theme}>
-    <FavoritesProvider>
-      <NavigationContainer ref={navigationRef}>{children}</NavigationContainer>
-    </FavoritesProvider>
-  </ThemeProvider>
-);
+  return ({ children }: IProviderProps) => (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <FavoritesProvider>
+          <NavigationContainer ref={navigationRef}>
+            {children}
+          </NavigationContainer>
+        </FavoritesProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+};
+
+export const usePokemonDetailsProvider = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+
+  return ({ children }: IProviderProps) => (
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClient}>
+        <FavoritesProvider>
+          <NavigationContainer ref={navigationRef}>
+            {children}
+          </NavigationContainer>
+        </FavoritesProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+};

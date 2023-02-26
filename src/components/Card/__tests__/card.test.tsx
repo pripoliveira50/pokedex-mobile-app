@@ -27,7 +27,7 @@ const data: PokemonPayloadProps = {
 describe('Card', () => {
   it('should render card with pokemon image', () => {
     const { getByTestId } = render(<Card data={data} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
     expect(getByTestId('card-image-pokemon').props.source.uri).toBe(
       `${data.url}${data.id}.png`,
@@ -36,20 +36,20 @@ describe('Card', () => {
 
   it('should render card with pokemon id', () => {
     const { getByTestId } = render(<Card data={data} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
     expect(getByTestId('card-id').props.children).toContain(data.id);
   });
   it('should render card with pokemon name', () => {
     const { getByTestId } = render(<Card data={data} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
     expect(getByTestId('card-name').props.children).toBe(data.name);
   });
 
   it('should render card with pokemon type', () => {
     const { getByTestId } = render(<Card data={data} />, {
-      wrapper: useCardProvider,
+      wrapper: useCardProvider(),
     });
     expect(getByTestId('card-type-name').props.children).toBe(
       data.types[0].type.name,
