@@ -46,10 +46,3 @@ export const Image = styled.ImageBackground`
   opacity: 0.8;
   transform: rotate(10deg);
 `;
-
-export const Lottie = styled(LottieView).attrs({
-  autoPlay: true,
-  loop: true,
-})`
-  width: ${RFValue(250)}px;
-`;
