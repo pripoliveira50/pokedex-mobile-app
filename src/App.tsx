@@ -12,9 +12,8 @@ import { theme } from '@global/index';
 import '@config/ReactotronConfig';
 
 import { FavoritesProvider } from '@context/FavoritesContext';
-import { preventAutoHideAsync, hideAsync } from 'expo-splash-screen';
 import { LogBox, StatusBar } from 'react-native';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   SafeAreaProvider,
   initialWindowMetrics,
@@ -23,8 +22,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { navigationRef } from '@routes/root';
 import { AppRoutes } from '@routes/app.routes';
 import ReactQueryProvider from '@services/react-query';
-
-preventAutoHideAsync();
 
 export default function App() {
   LogBox.ignoreAllLogs();
@@ -42,12 +39,6 @@ export default function App() {
     }
   }, [fontsLoaded]);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await hideAsync();
-    }
-  }, [appIsReady]);
-
   if (!appIsReady) {
     return null;
   }
@@ -58,7 +49,6 @@ export default function App() {
       <ReactQueryProvider>
         <SafeAreaProvider
           initialMetrics={initialWindowMetrics}
-          onLayout={onLayoutRootView}
         >
           <NavigationContainer ref={navigationRef}>
             <FavoritesProvider>
