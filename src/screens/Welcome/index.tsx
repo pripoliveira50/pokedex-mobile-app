@@ -4,6 +4,8 @@ import { Button } from '@components/Button';
 import { useRoutes } from '@hooks/useRoutes';
 import squirtle from './squirtle.json';
 import { ROUTES } from '@routes/types';
+import { AnimatedLottieView } from '@global/animated-lottieview';
+
 
 export const Welcome = () => {
   const { navigate } = useRoutes();
@@ -16,7 +18,12 @@ export const Welcome = () => {
       </S.ContainerText>
 
       <S.Content>
-        <S.Lottie source={squirtle} />
+        <AnimatedLottieView
+        source={squirtle}
+        style={{ width: "100%", height: "50%" }}
+        autoPlay
+        loop
+        />
       </S.Content>
 
       <S.Bottom>
