@@ -117,7 +117,7 @@ cd pokedex-app
 
 ### 2. Install dependencies
 ```bash
-yarn install --force
+yarn install 
 ```
 
 ### 3. iOS setup (macOS only)
@@ -134,26 +134,6 @@ yarn start -c
 ```bash
 yarn android     # for Android
 yarn ios         # for iOS
-```
-
----
-
-## 🧹 Cleaning Cache
-
-### Android
-```bash
-del %appdata%\Temp\react-native- & cd android & gradlew clean & cd .. & del node_modules/ & yarn cache clean --force & yarn install & yarn start -- --reset-cache
-```
-```bash
-rm -rf node_modules && yarn cache clean --force && yarn install --force
-```
-```bash
-cd android && rm -rf build/ && cd app/ && rm -rf build/ && cd .. && ./gradlew clean && cd ..
-```
-
-### iOS
-```bash
-cd ios && rm -rf assets Pods Podfile.lock && pod cache clean --all && pod install && cd ..
 ```
 
 ---
